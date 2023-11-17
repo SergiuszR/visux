@@ -128,7 +128,7 @@ $(document).ready(function () {
 $(document).ready(function () {
   var typingTimers = {};
 
-  $(".career__item").each(function (index) {
+  $("[data-item='career_item']").each(function (index) {
     var $thisItem = $(this);
     var $image = $thisItem.find("#image");
     var $name = $thisItem.find("#name");
@@ -194,48 +194,54 @@ $(document).ready(function () {
   }
 });
 
-// team slider
-$(document).ready(function () {
-  $(".careers__slider").slick({
-    dots: false,
-    speed: 1000,
-    infinite: true,
-    variableWidth: true,
-    // slidesToScroll: 2,
-    swipeToSlide: true,
-    arrows: false,
-    autoplay: false,
-    autoplaySpeed: 2000,
-    touchThreshold: 100,
 
-    responsive: [
-      {
-        // tablet
-        breakpoint: 991,
-        settings: {
-          slidesToShow: 2
-        }
+const swiper = new Swiper(".swiper", {
+  // Optional parameters
+  direction: "horizontal",
+  loop: true,
+  slidesPerView: 1.2,
+  centeredSlides: false,
+  draggable: true,
+  autoplay: {
+        delay: 3000,
+        disableOnInteraction: false
       },
-      {
-        // mobile portrait
-        breakpoint: 479,
-        settings: {
-          slidesToShow: 1
-        }
-      }
-    ]
-  });
-
-  $(".slider-prev").click(function () {
-    $(this).closest(".section").find(".careers__slider").slick("slickPrev");
-  });
-
-  $(".slider-next").click(function () {
-    $(this).closest(".section").find(".careers__slider").slick("slickNext");
-  });
-
-  $(".slick-prev, .slick-next").css("display", "none");
+  pauseOnMouseEnter: true,
+  spaceBetween: 10,
+  mousewheel: {
+    forceToAxis: true
+  },
+  speed: 300,
+  // Responsive breakpoints
+  breakpoints: {
+    // when window width is >= 480px
+    480: {
+      slidesPerView: 1.5
+    },
+    // when window width is >= 768px
+    768: {
+      slidesPerView: 2.5
+    },
+    // when window width is >= 992px
+    992: {
+      slidesPerView: 3.5
+    }
+  }
 });
+
+var swiperEl = document.querySelector('.swiper');
+
+// On hover, pause the autoplay
+swiperEl.addEventListener('mouseenter', function() {
+  swiper.autoplay.stop();
+});
+
+// On mouseleave, start the autoplay again
+swiperEl.addEventListener('mouseleave', function() {
+  swiper.autoplay.start();
+});
+
+
 
 // fixed fonts sizes
 
